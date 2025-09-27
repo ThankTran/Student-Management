@@ -18,7 +18,7 @@ namespace Project.Services
                 return;
             }
 
-            Console.WriteLine("Idx | Name                 | ID         | Age   | GPA  ");
+            Console.WriteLine("Idx | Name                           | ID         | Age   | GPA  ");
             Console.WriteLine(new string('-', 60));
             foreach (var s in list)
                 Console.WriteLine(s.ToString());
