@@ -1,38 +1,46 @@
-﻿using Project.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using Project.Entities;
 
 namespace Project.Data
 {
     public static class Database
     {
-        private static string filePath = "students.txt";
+        private static string filePath = Path.Combine("Data", "students.txt");
         public static List<Student> Students { get; private set; } = new List<Student>();
 
         public static void LoadData()
         {
-            Students.Clear();
-            if (!File.Exists(filePath)) return;
 
-            var lines = File.ReadAllLines(filePath);
-            foreach (var line in lines)
+            Students.Clear();
+            if (File.Exists(filePath))
             {
-                var student = Student.FromFileString(line);
-                if (student != null)
-                    Students.Add(student);
+                var lines = File.ReadAllLines(filePath);
+                foreach (var line in lines)
+                {
+                    var student = Student.FromFileString(line);
+                    if (student != null)
+                        Students.Add(student);
+                }
             }
         }
 
         public static void SaveData()
         {
-            for (int i = 0; i < Students.Count; i++)
-                Students[i].Index = i + 1;
+            try
+            {
+                for (int i = 0; i < Students.Count; i++)
+                    Students[i].Index = i + 1;
 
-            var lines = Students.Select(s => s.ToFileString()).ToList();
-            File.WriteAllLines(filePath, lines);
+                var lines = Students.Select(s => s.ToFileString()).ToList();
+                if(!Directory.Exists(Path.GetDirectoryName(filePath)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                File.WriteAllLines(filePath, lines, Encoding.UTF8);
+                Console.WriteLine("Data successfully saved to " + filePath);
+            }
+            catch
+            {
+                Console.WriteLine("Error saving data: ");
+            }
         }
     }
 }

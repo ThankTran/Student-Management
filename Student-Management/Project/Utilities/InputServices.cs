@@ -1,17 +1,11 @@
-﻿using Project.Entities;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
+using Project.Entities;
 
 namespace Project.Utilities
 {
-    public class InputServices
+    public static class InputServices
     {
-        public static GetStudentInfo (string name, string ID, int age, double score)
+        public static Student GetStudentInfo(int index)
         {
             string fullName = "";
             string studentId = "";
@@ -21,7 +15,7 @@ namespace Project.Utilities
             while (true)
             {
                 Console.Write($"[{index}] Enter full name: ");
-                fullName = Console.ReadLine();
+                fullName = Console.ReadLine()?.Trim() ?? string.Empty;
 
                 if (string.IsNullOrWhiteSpace(fullName))
                 {
@@ -31,18 +25,16 @@ namespace Project.Utilities
 
                 if (!fullName.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
                 {
-                    Console.WriteLine("Error! Full name can only contain only letters and spaces. Please enter again.");
+                    Console.WriteLine("Error! Full name can only contain letters and spaces. Please enter again.");
                     continue;
                 }
-
                 break;
             }
 
-
             while (true)
             {
-                Console.Write("Enter student ID: ");
-                studentId = Console.ReadLine();
+                Console.Write("Enter student ID (8 digits): ");
+                studentId = Console.ReadLine()?.Trim() ?? string.Empty;
 
                 if (string.IsNullOrWhiteSpace(studentId) || studentId.Length != 8 || !studentId.All(char.IsDigit))
                 {
@@ -80,7 +72,11 @@ namespace Project.Utilities
 
                 try
                 {
-                    gpa = double.Parse(input, CultureInfo.InvariantCulture);
+                    if (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out gpa))
+                    {
+                        Console.WriteLine("Error! GPA must be a number.");
+                        continue;
+                    }
 
                     if (gpa < 0.0 || gpa > 10.0)
                     {
@@ -97,8 +93,16 @@ namespace Project.Utilities
                 break;
             }
 
-            return new Student(index, fullName.Trim(), studentId.Trim(), birthYear, gpa);
+            int age = DateTime.Now.Year - birthYear;
+
+            return new Student(index, fullName.Trim(), studentId.Trim(), age, gpa);
+        }
+
+        private static void ShowError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Error: " + message);
+            Console.ResetColor();
         }
     }
-}
 }

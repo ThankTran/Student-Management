@@ -1,0 +1,9 @@
+﻿1|tran thi hong thanh|24521643|19|10
+2|pham nguyen gia huy|24520690|20|9
+3|tran thi hong thanh|24521643|19|10
+4|pham nguyen gia huy|24520690|20|9
+5|khanh vi|24520000|21|8
+6|quang nghia|24520001|20|8
+7|hong thanh|24521643|19|10
+8|gia huy|24520690|20|9
+9|bui huynh ta|24521111|16|9
