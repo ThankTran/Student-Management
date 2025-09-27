@@ -23,7 +23,7 @@ namespace Project.Entities
 
         public override string ToString()
         {
-            return $"{Index,-3} | {Name,-20} | {ID,-10} | {Age,-5} | {Score,-5}";
+            return $"{Index,-3} | {Name,-30} | {ID,-10} | {Age,-5} | {Score,-5}";
         }
 
         public string ToFileString()
