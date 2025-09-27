@@ -18,7 +18,7 @@ namespace Project.Services
                 return;
             }
 
-            Console.WriteLine("Idx | Name                 | ID         | Age   | GPA  ");
+            Console.WriteLine("Idx | Name                                    | ID         | Age   | GPA  ");
             Console.WriteLine(new string('-', 60));
             foreach (var s in list)
                 Console.WriteLine(s.ToString());
@@ -44,7 +44,7 @@ namespace Project.Services
             var existing = repo.GetByIndex(idx);
             if (existing == null) { Console.WriteLine("Student not found."); return; }
 
-            Console.WriteLine("Enter new data (leave blank to keep current value):");
+            Console.WriteLine("Enter new data:");
 
             Console.Write($"Full name ({existing.Name}): ");
             var name = Console.ReadLine();
@@ -93,7 +93,7 @@ namespace Project.Services
             var results = list.Where(s => s.Name.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             if (results.Count == 0) { Console.WriteLine("No matches."); return; }
 
-            Console.WriteLine("Idx | Name                 | ID         | Age   | GPA  ");
+            Console.WriteLine("Idx | Name                         | ID         | Age   | GPA  ");
             Console.WriteLine(new string('-', 60));
             foreach (var s in results)
                 Console.WriteLine(s.ToString());

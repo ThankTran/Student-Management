@@ -8,7 +8,6 @@ internal class ApplicationUI
     {
         while (true)
         {
-            Console.WriteLine();
             Console.WriteLine("===== Student Management =====");
             Console.WriteLine("Choose an option: ");
             Console.WriteLine("1. Enter list students");
